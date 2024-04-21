@@ -1,22 +1,8 @@
-var gameSettings = {
-    playerSpeed: 200,
-    maxPowerups: 2,
-    powerUpVel: 50,
-  }
-  
-  var config = {
-    width: 256,
-    height: 272,
+var config = {
+    width: 800,
+    height: 600,
     backgroundColor: 0x000000,
-    scene: [PreloadScene, Scene2],
-    pixelArt: true,
-    physics: {
-      default: "arcade",
-      arcade:{
-          debug: false,
-          debugShowVelocity: false
-      }
-    }
+    scene: [Scene1, Scene2]
   }
   
   

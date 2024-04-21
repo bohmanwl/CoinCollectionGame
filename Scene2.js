@@ -1,12 +1,9 @@
-class Scene2 extends Phaser.Scene {
-    constructor() {
+class Scene2 extends Phaser.Scene{
+    constructor(){
       super("playGame");
+    }
   
+    create(){
+      this.add.text(20, 20, "Playing game", {font: "25px Arial", fill: "yellow"});
     }
-
-    create() {
-
-        this.background = this.add.tileSprite(0, 0, config.width, config.height, "background");
-        this.background.setOrigin(0, 0);
-    }
-}
+  }
