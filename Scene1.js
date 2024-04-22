@@ -5,8 +5,8 @@ class Scene1 extends Phaser.Scene {
 
   preload(){
     this.load.image("background", "assets/images/background1.png");
-
-    this.load.spritesheet("ship", "assets/spritesheets/ship.png",{
+   
+    this.load.spritesheet("player", "assets/spritesheets/player.png",{
       frameWidth: 16,
       frameHeight: 16
     });
@@ -52,7 +52,7 @@ class Scene1 extends Phaser.Scene {
 
     this.anims.create({
       key: "ship1_anim",
-      frames: this.anims.generateFrameNumbers("ship"),
+      frames: this.anims.generateFrameNumbers("player"),
       frameRate: 20,
       repeat: -1
     });
