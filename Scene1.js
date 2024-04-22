@@ -4,7 +4,7 @@ class Scene1 extends Phaser.Scene {
   }
 
   preload(){
-    this.load.image("background", "assets/images/background1.png");
+    this.load.image("background", "assets/images/background.png");
 
     this.load.spritesheet("ship", "assets/spritesheets/ship.png",{
       frameWidth: 16,
@@ -22,7 +22,7 @@ class Scene1 extends Phaser.Scene {
       frameWidth: 16,
       frameHeight: 16
     });
-    this.load.spritesheet("power-up", "assets/spritesheets/coin.png",{
+    this.load.spritesheet("power-up", "assets/spritesheets/power-up.png",{
       frameWidth: 16,
       frameHeight: 16
     });
