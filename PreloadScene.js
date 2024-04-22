@@ -1,10 +1,15 @@
-class Scene1 extends Phaser.Scene {
+import Phaser from 'phaser';
+
+export default class PreloadScene extends Phaser.Scene {
     constructor() {
-      super("bootGame");
+        super({ key: 'PreloadScene' });
     }
 
+    preload() {
+        // Preload assets here
+    }
 
-    preload(){
-        this.load.image("background", "assets/images/background.png");
+    create() {
+        // Create game objects and set up scene
     }
 }

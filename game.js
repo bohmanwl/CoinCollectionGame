@@ -1,3 +1,5 @@
+import PreloadScene from './PreloadScene';
+
 var gameSettings = {
     playerSpeed: 200,
     maxPowerups: 2,
