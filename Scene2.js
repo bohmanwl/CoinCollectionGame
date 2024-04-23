@@ -18,11 +18,6 @@ class Scene2 extends Phaser.Scene {
     this.enemies.add(this.ship2);
     this.enemies.add(this.ship3);
 
-
-    this.ship1.play("ship1_anim");
-    this.ship2.play("ship2_anim");
-    this.ship3.play("ship3_anim");
-
     this.ship1.setInteractive();
     this.ship2.setInteractive();
     this.ship3.setInteractive();

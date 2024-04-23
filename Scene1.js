@@ -6,18 +6,10 @@ class Scene1 extends Phaser.Scene {
   preload(){
     this.load.image("background", "assets/images/background1.png");
 
-    this.load.spritesheet("ship", "assets/spritesheets/ship.png",{
-      frameWidth: 16,
-      frameHeight: 16
-    });
-    this.load.spritesheet("ship2", "assets/spritesheets/ship2.png",{
-      frameWidth: 32,
-      frameHeight: 16
-    });
-    this.load.spritesheet("ship3", "assets/spritesheets/ship3.png",{
-      frameWidth: 32,
-      frameHeight: 32
-    });
+    this.load.image("ship", "assets/images/coin2.png");
+    this.load.image("ship2", "assets/images/coin2.png");
+    this.load.image("ship3", "assets/images/coin2.png");
+
     this.load.spritesheet("explosion", "assets/spritesheets/explosion.png",{
       frameWidth: 16,
       frameHeight: 16
@@ -45,29 +37,8 @@ class Scene1 extends Phaser.Scene {
 
   create() {
 
-
-
     this.add.text(20, 20, "Loading game...");
     this.scene.start("playGame");
-
-    this.anims.create({
-      key: "ship1_anim",
-      frames: this.anims.generateFrameNumbers("ship"),
-      frameRate: 20,
-      repeat: -1
-    });
-    this.anims.create({
-      key: "ship2_anim",
-      frames: this.anims.generateFrameNumbers("ship2"),
-      frameRate: 20,
-      repeat: -1
-    });
-    this.anims.create({
-      key: "ship3_anim",
-      frames: this.anims.generateFrameNumbers("ship3"),
-      frameRate: 20,
-      repeat: -1
-    });
 
     this.anims.create({
       key: "explode",
