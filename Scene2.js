@@ -32,12 +32,6 @@ class Scene2 extends Phaser.Scene {
       this.powerUps.add(powerUp);
       powerUp.setRandomPosition(0, 0, game.config.width, game.config.height);
 
-      /*if (Math.random() > 0.5) {
-        powerUp.play("red");
-      } else {
-        powerUp.play("gray");
-      }*/
-
       powerUp.setVelocity(gameSettings.powerUpVel, gameSettings.powerUpVel);
       powerUp.setCollideWorldBounds(true);
       powerUp.setBounce(1);
@@ -111,13 +105,13 @@ class Scene2 extends Phaser.Scene {
     this.score += 15;
     var scoreFormated = this.zeroPad(this.score, 6);
     this.scoreLabel.text = "SCORE " + scoreFormated;
+    this.pickupSound.play();
   }
-
+//Resets the player when they hit an enemy
   resetPlayer(){
     var x = config.width / 2 - 8;
     var y = config.height + 64;
     this.player.enableBody(true, x, y, true, true);
-
 
     this.player.alpha = 0.5;
 
@@ -132,20 +126,6 @@ class Scene2 extends Phaser.Scene {
       },
       callbackScope: this
     });
-  }
-
-  //Interaction when player shoots and enemy
-  hitEnemy(projectile, enemy) {
-
-    var explosion = new Explosion(this, enemy.x, enemy.y);
-
-    projectile.destroy();
-    this.resetShipPos(enemy);
-    this.score += 15;
-
-     var scoreFormated = this.zeroPad(this.score, 6);
-     this.scoreLabel.text = "SCORE " + scoreFormated;
-     this.explosionSound.play();
   }
 
 //??? think this has to do with scoring
@@ -164,26 +144,8 @@ class Scene2 extends Phaser.Scene {
     this.moveShip(this.ship3, 3);
     this.background.tilePositionY -= 0.5;
     this.movePlayerManager();
-
-    /*if (Phaser.Input.Keyboard.JustDown(this.spacebar)) {
-      if(this.player.active){
-          this.shootBeam();
-      }
-    }
-    for (var i = 0; i < this.projectiles.getChildren().length; i++) {
-      var beam = this.projectiles.getChildren()[i];
-      beam.update();
-    }*/
-
-
   }
-
-  /*shootBeam() {
-      var beam = new Beam(this);
-
-      this.beamSound.play();
-  }*/
-
+  
 //Rules for player movement
   movePlayerManager() {
     this.player.setVelocity(0);
