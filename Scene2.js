@@ -5,7 +5,7 @@ class Scene2 extends Phaser.Scene {
   }
 
   create() {
-
+// Initial Asset creation
     this.background = this.add.tileSprite(0, 0, config.width, config.height, "background");
     this.background.setOrigin(0, 0);
 
@@ -23,30 +23,27 @@ class Scene2 extends Phaser.Scene {
     this.ship3.setInteractive();
 
     this.input.on('gameobjectdown', this.destroyShip, this);
-
     this.physics.world.setBoundsCollision();
-
     this.powerUps = this.physics.add.group();
 
-
+//Power up settings
     for (var i = 0; i < gameSettings.maxPowerups; i++) {
-      var powerUp = this.physics.add.sprite(16, 16, "power-up");
+      var powerUp = this.physics.add.image(16, 16, "power-up");
       this.powerUps.add(powerUp);
       powerUp.setRandomPosition(0, 0, game.config.width, game.config.height);
 
-      if (Math.random() > 0.5) {
+      /*if (Math.random() > 0.5) {
         powerUp.play("red");
       } else {
         powerUp.play("gray");
-      }
+      }*/
 
       powerUp.setVelocity(gameSettings.powerUpVel, gameSettings.powerUpVel);
       powerUp.setCollideWorldBounds(true);
       powerUp.setBounce(1);
-
     }
 
-
+//Player Movement and restrictions
     this.player = this.physics.add.sprite(config.width / 2 - 8, config.height - 64, "player");
     this.player.play("thrust");
     this.cursorKeys = this.input.keyboard.createCursorKeys();
@@ -55,7 +52,6 @@ class Scene2 extends Phaser.Scene {
 
 
     this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-
     this.projectiles = this.add.group();
 
     this.physics.add.collider(this.projectiles, this.powerUps, function(projectile, powerUp) {
@@ -63,9 +59,7 @@ class Scene2 extends Phaser.Scene {
     });
 
     this.physics.add.overlap(this.player, this.powerUps, this.pickPowerUp, null, this);
-
     this.physics.add.overlap(this.player, this.enemies, this.hurtPlayer, null, this);
-
     this.physics.add.overlap(this.projectiles, this.enemies, this.hitEnemy, null, this);
 
     var graphics = this.add.graphics();
@@ -111,25 +105,12 @@ class Scene2 extends Phaser.Scene {
 
     this.pickupSound.play();
   }
-
+//Interaction when player hits a coin ===================================================================================================================
   hurtPlayer(player, enemy) {
-
     this.resetShipPos(enemy);
-
-    if(this.player.alpha < 1){
-        return;
-    }
-
-    var explosion = new Explosion(this, player.x, player.y);
-
-    player.disableBody(true, true);
-
-    this.time.addEvent({
-      delay: 1000,
-      callback: this.resetPlayer,
-      callbackScope: this,
-      loop: false
-    });
+    this.score += 15;
+    var scoreFormated = this.zeroPad(this.score, 6);
+    this.scoreLabel.text = "SCORE " + scoreFormated;
   }
 
   resetPlayer(){
@@ -153,6 +134,7 @@ class Scene2 extends Phaser.Scene {
     });
   }
 
+  //Interaction when player shoots and enemy
   hitEnemy(projectile, enemy) {
 
     var explosion = new Explosion(this, enemy.x, enemy.y);
@@ -163,12 +145,10 @@ class Scene2 extends Phaser.Scene {
 
      var scoreFormated = this.zeroPad(this.score, 6);
      this.scoreLabel.text = "SCORE " + scoreFormated;
-
-
      this.explosionSound.play();
   }
 
-
+//??? think this has to do with scoring
   zeroPad(number, size){
       var stringNumber = String(number);
       while(stringNumber.length < (size || 2)){
@@ -177,22 +157,15 @@ class Scene2 extends Phaser.Scene {
       return stringNumber;
   }
 
-
-
-
+//update screen showing movements
   update() {
-
     this.moveShip(this.ship1, 1);
     this.moveShip(this.ship2, 2);
     this.moveShip(this.ship3, 3);
-
-
     this.background.tilePositionY -= 0.5;
-
-
     this.movePlayerManager();
 
-    if (Phaser.Input.Keyboard.JustDown(this.spacebar)) {
+    /*if (Phaser.Input.Keyboard.JustDown(this.spacebar)) {
       if(this.player.active){
           this.shootBeam();
       }
@@ -200,22 +173,20 @@ class Scene2 extends Phaser.Scene {
     for (var i = 0; i < this.projectiles.getChildren().length; i++) {
       var beam = this.projectiles.getChildren()[i];
       beam.update();
-    }
+    }*/
 
 
   }
 
-  shootBeam() {
+  /*shootBeam() {
       var beam = new Beam(this);
 
       this.beamSound.play();
-  }
+  }*/
 
-
+//Rules for player movement
   movePlayerManager() {
-
     this.player.setVelocity(0);
-
     if (this.cursorKeys.left.isDown) {
       this.player.setVelocityX(-gameSettings.playerSpeed);
     } else if (this.cursorKeys.right.isDown) {
@@ -229,8 +200,7 @@ class Scene2 extends Phaser.Scene {
     }
   }
 
-
-
+  //creates the movements of coins down the screen
   moveShip(ship, speed) {
     ship.y += speed;
     if (ship.y > config.height) {
@@ -238,14 +208,14 @@ class Scene2 extends Phaser.Scene {
     }
   }
 
+  //Resets coins at top of screen
   resetShipPos(ship) {
     ship.y = 0;
     var randomX = Phaser.Math.Between(0, config.width);
     ship.x = randomX;
   }
 
-
-
+  //interactions when player sprite meets monster
   destroyShip(pointer, gameObject) {
     gameObject.setTexture("explosion");
     gameObject.play("explode");

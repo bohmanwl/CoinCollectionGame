@@ -9,15 +9,16 @@ class Scene1 extends Phaser.Scene {
     this.load.image("ship", "assets/images/coin2.png");
     this.load.image("ship2", "assets/images/coin2.png");
     this.load.image("ship3", "assets/images/coin2.png");
+    this.load.image("power-up", "assets/images/monster2.png");
 
     this.load.spritesheet("explosion", "assets/spritesheets/explosion.png",{
       frameWidth: 16,
       frameHeight: 16
     });
-    this.load.spritesheet("power-up", "assets/spritesheets/coin2.png",{
+    /*this.load.spritesheet("power-up", "assets/spritesheets/coin2.png",{
       frameWidth: 16,
       frameHeight: 16
-    });
+    });*/
     this.load.spritesheet("player", "assets/spritesheets/player.png",{
       frameWidth: 16,
       frameHeight: 24
@@ -47,7 +48,7 @@ class Scene1 extends Phaser.Scene {
       repeat: 0,
       hideOnComplete: true
     });
-
+/*
     this.anims.create({
       key: "red",
       frames: this.anims.generateFrameNumbers("power-up", {
@@ -78,7 +79,7 @@ class Scene1 extends Phaser.Scene {
       frames: this.anims.generateFrameNumbers("beam"),
       frameRate: 20,
       repeat: -1
-    });
+    });*/
 
 
 
