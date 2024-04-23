@@ -94,6 +94,9 @@ class Scene2 extends Phaser.Scene {
       callbackScope: this,
       loop: false
     });
+    this.score = 0;
+    var scoreFormated = this.zeroPad(this.score, 6);
+    this.scoreLabel.text = "SCORE " + scoreFormated;
   }
 //Interaction when player hits a coin
   hurtPlayer(player, enemy) {
@@ -103,7 +106,7 @@ class Scene2 extends Phaser.Scene {
     this.scoreLabel.text = "SCORE " + scoreFormated;
     this.pickupSound.play();
   }
-  
+
 //Resets the player when they hit an enemy
   resetPlayer(){
     var x = config.width / 2 - 8;
