@@ -15,10 +15,6 @@ class Scene1 extends Phaser.Scene {
       frameWidth: 16,
       frameHeight: 16
     });
-    /*this.load.spritesheet("power-up", "assets/spritesheets/coin2.png",{
-      frameWidth: 16,
-      frameHeight: 16
-    });*/
     this.load.spritesheet("player", "assets/spritesheets/player.png",{
       frameWidth: 16,
       frameHeight: 24
@@ -30,23 +26,14 @@ class Scene1 extends Phaser.Scene {
 
     this.load.bitmapFont("pixelFont", "assets/font/font.png", "assets/font/font.xml");
 
-    this.load.audio("audio_beam", ["assets/sounds/beam.ogg", "assets/sounds/beam.mp3"]);
+    this.load.audio("audio_damage", "assets/sounds/damage.mp3");
     this.load.audio("audio_explosion", ["assets/sounds/explosion.ogg", "assets/sounds/explosion.mp3"]);
     this.load.audio("audio_pickup", ["assets/sounds/pickup.ogg", "assets/sounds/pickup.mp3"]);
     this.load.audio("music", ["assets/sounds/sci-fi_platformer12.ogg", "assets/sounds/sci-fi_platformer12.mp3"]);
   }
 
   create() {
-
     this.add.text(20, 20, "Loading game...");
     this.scene.start("playGame");
-
-    /*this.anims.create({
-      key: "explode",
-      frames: this.anims.generateFrameNumbers("explosion"),
-      frameRate: 20,
-      repeat: 0,
-      hideOnComplete: true
-    });*/
   }
 }

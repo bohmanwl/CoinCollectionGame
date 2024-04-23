@@ -43,18 +43,10 @@ class Scene2 extends Phaser.Scene {
     this.cursorKeys = this.input.keyboard.createCursorKeys();
     this.player.setCollideWorldBounds(true);
 
-
-
     this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-    this.projectiles = this.add.group();
-
-    this.physics.add.collider(this.projectiles, this.powerUps, function(projectile, powerUp) {
-      projectile.destroy();
-    });
 
     this.physics.add.overlap(this.player, this.powerUps, this.pickPowerUp, null, this);
     this.physics.add.overlap(this.player, this.enemies, this.hurtPlayer, null, this);
-    this.physics.add.overlap(this.projectiles, this.enemies, this.hitEnemy, null, this);
 
     var graphics = this.add.graphics();
     graphics.fillStyle(0x000000, 1);
@@ -72,34 +64,38 @@ class Scene2 extends Phaser.Scene {
     var scoreFormated = this.zeroPad(this.score, 6);
     this.scoreLabel = this.add.bitmapText(10, 5, "pixelFont", "SCORE " + scoreFormated  , 16);
 
-
-    this.beamSound = this.sound.add("audio_beam");
-    this.explosionSound = this.sound.add("audio_explosion");
     this.pickupSound = this.sound.add("audio_pickup");
-
-
     this.music = this.sound.add("music");
+    this.damageSound = this.sound.add("audio_damage");
 
     var musicConfig = {
       mute: false,
-      volume: 1,
+      volume: 0.1,
       rate: 1,
       detune: 0,
       seek: 0,
       loop: false,
       delay: 0
     }
-
     this.music.play(musicConfig);
 
   }
 
   pickPowerUp(player, powerUp) {
-    powerUp.disableBody(true, true);
-
-    this.pickupSound.play();
+    this.resetShipPos(powerUp);
+    if(this.player.alpha < 1){
+        return;
+    }
+    this.damageSound.play();
+    player.disableBody(true, true);
+    this.time.addEvent({
+      delay: 1000,
+      callback: this.resetPlayer,
+      callbackScope: this,
+      loop: false
+    });
   }
-//Interaction when player hits a coin ===================================================================================================================
+//Interaction when player hits a coin
   hurtPlayer(player, enemy) {
     this.resetShipPos(enemy);
     this.score += 15;
@@ -107,6 +103,7 @@ class Scene2 extends Phaser.Scene {
     this.scoreLabel.text = "SCORE " + scoreFormated;
     this.pickupSound.play();
   }
+  
 //Resets the player when they hit an enemy
   resetPlayer(){
     var x = config.width / 2 - 8;
@@ -145,7 +142,7 @@ class Scene2 extends Phaser.Scene {
     this.background.tilePositionY -= 0.5;
     this.movePlayerManager();
   }
-  
+
 //Rules for player movement
   movePlayerManager() {
     this.player.setVelocity(0);
