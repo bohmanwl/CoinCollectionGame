@@ -1,11 +1,11 @@
 import "./geolocation.js";
-export default class Scene1 extends Phaser.Scene {
+class Scene1 extends Phaser.Scene {
   constructor() {
     super("bootGame");
   }
     preload(){
 
-    this.load.image("background", "assets/images/background1.jpg");
+    this.load.image("background", "assets/images/${imageKey}.jpg");
     this.load.image("ship", "assets/images/coin2.png");
     this.load.image("ship2", "assets/images/coin2.png");
     this.load.image("ship3", "assets/images/coin2.png");
@@ -33,28 +33,7 @@ export default class Scene1 extends Phaser.Scene {
   }
 
   create() {
-    const imageKey = this.getBackgroundImageKey(); // Get initial background image key
-    this.updateBackground(imageKey);
     this.add.text(20, 20, "Loading game...");
     this.scene.start("playGame");
- 
-  }
-  getBackgroundImageKey() {
-    let imageKey = "background"; // Default key
-
-    // Logic to determine image key based on latitude
-    const latitude = parseFloat(document.querySelector("#latitude").textContent);
-    if (latitude > 30) {
-      imageKey = "hot.jpg";
-    } else if (latitude >= 10 && latitude <= 30) {
-      imageKey = "warm.jpg";
-    } else {
-      imageKey = "cold.jpg";
-    }
-
-    return imageKey;
-  }
-  updateBackground(imageKey) {
-    this.add.image(0, 0, imageKey).setOrigin(0); // Add the background image
   }
 }

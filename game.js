@@ -1,6 +1,3 @@
-import Scene1 from "./Scene1.js";
-import Scene2 from "./Scene2.js";
-
 var gameSettings = {
   playerSpeed: 200,
   maxPowerups: 2,
