@@ -1,5 +1,5 @@
 import "./geolocation.js";
-class Scene1 extends Phaser.Scene {
+export default class Scene1 extends Phaser.Scene {
   constructor() {
     super("bootGame");
   }
@@ -58,4 +58,3 @@ class Scene1 extends Phaser.Scene {
     this.add.image(0, 0, imageKey).setOrigin(0); // Add the background image
   }
 }
-export default Scene1;
