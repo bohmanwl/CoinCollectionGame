@@ -5,13 +5,14 @@ class Scene1 extends Phaser.Scene {
   }
     preload(){
 
-    this.load.image("background", "assets/images/background1.png");
+    this.load.image("background", "assets/images/background.png");
     this.load.image("coin", "assets/images/coin2.png");
     this.load.image("power-up", "assets/images/monster2.png");
-    this.load.spritesheet("player", "assets/spritesheets/player.png",{
+    this.load.image("player", "assets/images/player.webp");
+    /*this.load.spritesheet("player", "assets/spritesheets/player.png",{
       frameWidth: 16,
       frameHeight: 24
-    });
+    });*/
 
     this.load.bitmapFont("pixelFont", "assets/font/font.png", "assets/font/font.xml");
     this.load.audio("audio_damage", "assets/sounds/damage.mp3");
