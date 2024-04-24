@@ -12,10 +12,10 @@ document.addEventListener("DOMContentLoaded", function() {
             const longitude = position.coords.longitude;
 
             status.textContent = "";
-            if (latitude > 30) {
+            if (longitude > 30) {
                 temperatureText = "hot";
                 imageKey = "hot";
-            } else if (latitude >= 10 && latitude <= 30) {
+            } else if (longitude >= 10 && longitude <= 30) {
                 temperatureText = "warm";
                  imageKey = "warm";
             } else {
