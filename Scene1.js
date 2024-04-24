@@ -4,8 +4,36 @@ class Scene1 extends Phaser.Scene {
     super("bootGame");
   }
     preload(){
+
+      
+     // Sets the game background based on the users Latitude provided by their browser
+     function getUserLatitude() {
+        return new Promise((resolve, reject) => {
+          if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+              position => {
+                const latitude = position.coords.latitude;
+                resolve(latitude);
+              },
+              error => {
+                reject(error);
+              }
+            );
+          } else {
+            reject(new Error("Geolocation is not supported by this browser."));
+          }
+        });
+      }
+
+      getUserLatitude().then(latitude => {
+        if(latitude >= 30){
+          this.load.image("background", "assets/images/hot.jpg");
+        }else{
+          this.load.image("background", "assets/images/cold.jpg");
+        }
+      });
+
     //asset preload
-    this.load.image("background", "assets/images/background.png");
     this.load.image("coin", "assets/images/coin.png");
     this.load.image("monster", "assets/images/monster.png");
     this.load.image("player", "assets/images/player.webp");
@@ -20,6 +48,5 @@ class Scene1 extends Phaser.Scene {
   create() {
     this.add.text(20, 20, "Loading game...");
     this.scene.start("playGame");
-    
   }
 }
