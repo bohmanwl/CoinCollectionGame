@@ -5,7 +5,7 @@ class Scene1 extends Phaser.Scene {
   }
     preload(){
 
-      
+
      // Sets the game background based on the users Latitude provided by their browser
      function getUserLatitude() {
         return new Promise((resolve, reject) => {
@@ -27,9 +27,9 @@ class Scene1 extends Phaser.Scene {
 
       getUserLatitude().then(latitude => {
         if(latitude >= 30){
-          this.load.image("background", "assets/images/hot.jpg");
+          this.load.image("background", "assets/images/Desert.png");
         }else{
-          this.load.image("background", "assets/images/cold.jpg");
+          this.load.image("background", "assets/images/underwater.jpg");
         }
       });
 
