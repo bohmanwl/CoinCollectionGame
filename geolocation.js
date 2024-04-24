@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function() {
                  imageKey = "warm";
             } else {
                 temperatureText = "cold";
-                 imageKey = "cold";
+                imageKey = "cold";
             }
             mapLink.href = `https://www.openstreetmap.org/#map=18/${latitude}/${longitude}`;
             mapLink.textContent = `Latitude: ${latitude} °, Longitude: ${longitude} ° , ${temperatureText}`;
