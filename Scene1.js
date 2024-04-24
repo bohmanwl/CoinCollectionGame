@@ -1,3 +1,4 @@
+
 class Scene1 extends Phaser.Scene {
   constructor() {
     super("bootGame");
@@ -5,7 +6,7 @@ class Scene1 extends Phaser.Scene {
     preload(){
   
     
-    this.load.image("background", "assets/images/${imageKey}.jpg");
+    this.load.image("background", "assets/images/imageKey.jpg");
     this.load.image("ship", "assets/images/coin2.png");
     this.load.image("ship2", "assets/images/coin2.png");
     this.load.image("ship3", "assets/images/coin2.png");
