@@ -1,7 +1,6 @@
 class Scene2 extends Phaser.Scene {
   constructor() {
     super("playGame");
-
   }
 
   create() {
@@ -46,14 +45,14 @@ class Scene2 extends Phaser.Scene {
 
 //Player Movement and restrictions
     this.player = this.physics.add.sprite(config.width / 2 - 8, config.height - 64, "player");
-    this.player.play("thrust");
+    //this.player.play("thrust");
     this.cursorKeys = this.input.keyboard.createCursorKeys();
     this.player.setCollideWorldBounds(true);
 
     this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
-    this.physics.add.overlap(this.player, this.powerUps, this.pickPowerUp, null, this);
-    this.physics.add.overlap(this.player, this.coinGroup, this.hurtPlayer, null, this);
+    this.physics.add.overlap(this.player, this.powerUps, this.hitMonster, null, this);
+    this.physics.add.overlap(this.player, this.coinGroup, this.coinPickUp, null, this);
 
     var graphics = this.add.graphics();
     graphics.fillStyle(0x000000, 1);
@@ -87,9 +86,9 @@ class Scene2 extends Phaser.Scene {
     this.music.play(musicConfig);
 
   }
-
-  pickPowerUp(player, powerUp) {
-    this.resetCoinPos(powerUp);
+//Interaction when player hits a monster. Plays a damage sound, resets the monster and player. Sets score to zero.
+  hitMonster(player, monster) {
+    this.resetCoinPos(monster);
     if(this.player.alpha < 1){
         return;
     }
@@ -105,9 +104,10 @@ class Scene2 extends Phaser.Scene {
     var scoreFormated = this.zeroPad(this.score, 6);
     this.scoreLabel.text = "SCORE " + scoreFormated;
   }
-//Interaction when player hits a coin
-  hurtPlayer(player, enemy) {
-    this.resetCoinPos(enemy);
+
+//Interaction when player hits a coin. Coin resets, score goes up 15 points
+  coinPickUp(player, coin) {
+    this.resetCoinPos(coin);
     this.score += 15;
     var scoreFormated = this.zeroPad(this.score, 6);
     this.scoreLabel.text = "SCORE " + scoreFormated;
@@ -135,7 +135,7 @@ class Scene2 extends Phaser.Scene {
     });
   }
 
-//??? think this has to do with scoring
+//Score number formating
   zeroPad(number, size){
       var stringNumber = String(number);
       while(stringNumber.length < (size || 2)){
