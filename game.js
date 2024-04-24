@@ -1,7 +1,7 @@
 var gameSettings = {
   playerSpeed: 200,
-  maxPowerups: 2,
-  powerUpVel: 50,
+  maxMonsters: 7,
+  monsterVel: 50,
 };
 
 var config = {

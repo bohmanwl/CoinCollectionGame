@@ -31,27 +31,26 @@ class Scene2 extends Phaser.Scene {
     this.coin6.setInteractive();
 
     this.physics.world.setBoundsCollision();
-    this.powerUps = this.physics.add.group();
+    this.monsterGroup = this.physics.add.group();
 
-//Power up settings
-    for (var i = 0; i < gameSettings.maxPowerups; i++) {
-      var powerUp = this.physics.add.image(16, 16, "power-up");
-      this.powerUps.add(powerUp);
-      powerUp.setRandomPosition(0, 0, game.config.width, game.config.height);
-      powerUp.setVelocity(gameSettings.powerUpVel, gameSettings.powerUpVel);
-      powerUp.setCollideWorldBounds(true);
-      powerUp.setBounce(1);
+//Initialize Enemies and their movement
+      for (var i = 0; i < gameSettings.maxMonsters; i++) {
+      var monster = this.physics.add.image(16, 16, "monster");
+      this.monsterGroup.add(monster);
+      monster.setRandomPosition(0, 0, game.config.width, game.config.height);
+      monster.setVelocity(gameSettings.monsterVel, gameSettings.monsterVel);
+      monster.setCollideWorldBounds(true);
+      monster.setBounce(1);
     }
 
 //Player Movement and restrictions
     this.player = this.physics.add.sprite(config.width / 2 - 8, config.height - 64, "player");
-    //this.player.play("thrust");
     this.cursorKeys = this.input.keyboard.createCursorKeys();
     this.player.setCollideWorldBounds(true);
 
     this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
-    this.physics.add.overlap(this.player, this.powerUps, this.hitMonster, null, this);
+    this.physics.add.overlap(this.player, this.monsterGroup, this.hitMonster, null, this);
     this.physics.add.overlap(this.player, this.coinGroup, this.coinPickUp, null, this);
 
     var graphics = this.add.graphics();
@@ -66,10 +65,12 @@ class Scene2 extends Phaser.Scene {
     graphics.closePath();
     graphics.fillPath();
 
+    //Scoreboard initialization
     this.score = 0;
     var scoreFormated = this.zeroPad(this.score, 6);
     this.scoreLabel = this.add.bitmapText(10, 5, "pixelFont", "SCORE " + scoreFormated  , 16);
 
+    //Sound configuration
     this.pickupSound = this.sound.add("audio_pickup");
     this.music = this.sound.add("music");
     this.damageSound = this.sound.add("audio_damage");

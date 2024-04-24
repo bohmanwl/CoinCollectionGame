@@ -7,7 +7,7 @@ class Scene1 extends Phaser.Scene {
     //asset preload
     this.load.image("background", "assets/images/background.png");
     this.load.image("coin", "assets/images/coin.png");
-    this.load.image("power-up", "assets/images/monster.png");
+    this.load.image("monster", "assets/images/monster.png");
     this.load.image("player", "assets/images/player.webp");
 
     //Sound/bitmap preload
