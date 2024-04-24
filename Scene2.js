@@ -9,20 +9,28 @@ class Scene2 extends Phaser.Scene {
     this.background = this.add.tileSprite(0, 0, config.width, config.height, "background");
     this.background.setOrigin(0, 0);
 
-    this.ship1 = this.add.sprite(config.width / 2 - 50, config.height / 2, "ship");
-    this.ship2 = this.add.sprite(config.width / 2, config.height / 2, "ship2");
-    this.ship3 = this.add.sprite(config.width / 2 + 50, config.height / 2, "ship3");
+    this.coin = this.add.sprite(config.width / 2 - 50, config.height / 2, "coin");
+    this.coin2 = this.add.sprite(config.width / 2 - 50, config.height / 2, "coin");
+    this.coin3 = this.add.sprite(config.width / 2 - 50, config.height / 2, "coin");
+    this.coin4 = this.add.sprite(config.width / 2 - 50, config.height / 2, "coin");
+    this.coin5 = this.add.sprite(config.width / 2 - 50, config.height / 2, "coin");
+    this.coin6 = this.add.sprite(config.width / 2 - 50, config.height / 2, "coin");
 
-    this.enemies = this.physics.add.group();
-    this.enemies.add(this.ship1);
-    this.enemies.add(this.ship2);
-    this.enemies.add(this.ship3);
+    this.coinGroup = this.physics.add.group();
+    this.coinGroup.add(this.coin);
+    this.coinGroup.add(this.coin2);
+    this.coinGroup.add(this.coin3);
+    this.coinGroup.add(this.coin4);
+    this.coinGroup.add(this.coin5);
+    this.coinGroup.add(this.coin6);
 
-    this.ship1.setInteractive();
-    this.ship2.setInteractive();
-    this.ship3.setInteractive();
+    this.coin.setInteractive();
+    this.coin2.setInteractive();
+    this.coin3.setInteractive();
+    this.coin4.setInteractive();
+    this.coin5.setInteractive();
+    this.coin6.setInteractive();
 
-    this.input.on('gameobjectdown', this.destroyShip, this);
     this.physics.world.setBoundsCollision();
     this.powerUps = this.physics.add.group();
 
@@ -31,7 +39,6 @@ class Scene2 extends Phaser.Scene {
       var powerUp = this.physics.add.image(16, 16, "power-up");
       this.powerUps.add(powerUp);
       powerUp.setRandomPosition(0, 0, game.config.width, game.config.height);
-
       powerUp.setVelocity(gameSettings.powerUpVel, gameSettings.powerUpVel);
       powerUp.setCollideWorldBounds(true);
       powerUp.setBounce(1);
@@ -46,7 +53,7 @@ class Scene2 extends Phaser.Scene {
     this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
     this.physics.add.overlap(this.player, this.powerUps, this.pickPowerUp, null, this);
-    this.physics.add.overlap(this.player, this.enemies, this.hurtPlayer, null, this);
+    this.physics.add.overlap(this.player, this.coinGroup, this.hurtPlayer, null, this);
 
     var graphics = this.add.graphics();
     graphics.fillStyle(0x000000, 1);
@@ -82,7 +89,7 @@ class Scene2 extends Phaser.Scene {
   }
 
   pickPowerUp(player, powerUp) {
-    this.resetShipPos(powerUp);
+    this.resetCoinPos(powerUp);
     if(this.player.alpha < 1){
         return;
     }
@@ -100,7 +107,7 @@ class Scene2 extends Phaser.Scene {
   }
 //Interaction when player hits a coin
   hurtPlayer(player, enemy) {
-    this.resetShipPos(enemy);
+    this.resetCoinPos(enemy);
     this.score += 15;
     var scoreFormated = this.zeroPad(this.score, 6);
     this.scoreLabel.text = "SCORE " + scoreFormated;
@@ -139,9 +146,12 @@ class Scene2 extends Phaser.Scene {
 
 //update screen showing movements
   update() {
-    this.moveShip(this.ship1, 1);
-    this.moveShip(this.ship2, 2);
-    this.moveShip(this.ship3, 3);
+    this.moveCoin(this.coin, 1);
+    this.moveCoin(this.coin2, 2);
+    this.moveCoin(this.coin3, 3);
+    this.moveCoin(this.coin4, 4);
+    this.moveCoin(this.coin5, 2);
+    this.moveCoin(this.coin6, 1);
     this.background.tilePositionY -= 0.5;
     this.movePlayerManager();
   }
@@ -163,25 +173,17 @@ class Scene2 extends Phaser.Scene {
   }
 
   //creates the movements of coins down the screen
-  moveShip(ship, speed) {
-    ship.y += speed;
-    if (ship.y > config.height) {
-      this.resetShipPos(ship);
+  moveCoin(coin, speed) {
+    coin.y += speed;
+    if (coin.y > config.height) {
+      this.resetCoinPos(coin);
     }
   }
 
   //Resets coins at top of screen
-  resetShipPos(ship) {
-    ship.y = 0;
+  resetCoinPos(coin) {
+    coin.y = 0;
     var randomX = Phaser.Math.Between(0, config.width);
-    ship.x = randomX;
+    coin.x = randomX;
   }
-
-  //interactions when player sprite meets monster
-  destroyShip(pointer, gameObject) {
-    gameObject.setTexture("explosion");
-    gameObject.play("explode");
-  }
-
-
 }

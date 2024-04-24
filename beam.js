@@ -1,4 +1,4 @@
-class Beam extends Phaser.GameObjects.Sprite{
+/*class Beam extends Phaser.GameObjects.Sprite{
   constructor(scene){
 
     var x = scene.player.x;
@@ -23,4 +23,4 @@ class Beam extends Phaser.GameObjects.Sprite{
       this.destroy();
     }
   }
-}
+}*/
