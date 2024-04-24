@@ -1,11 +1,13 @@
 class Scene1 extends Phaser.Scene {
+  
   constructor() {
     super("bootGame");
   }
+    preload(){
 
-  preload(){
-    this.load.image("background", "assets/images/background1.png");
-
+      this.load.image("background", "assets/images/background1.png");
+   
+    
     this.load.image("ship", "assets/images/coin2.png");
     this.load.image("ship2", "assets/images/coin2.png");
     this.load.image("ship3", "assets/images/coin2.png");
@@ -35,5 +37,6 @@ class Scene1 extends Phaser.Scene {
   create() {
     this.add.text(20, 20, "Loading game...");
     this.scene.start("playGame");
+    
   }
 }
