@@ -1,11 +1,22 @@
-import "./geolocation.js";
 class Scene1 extends Phaser.Scene {
+  
   constructor() {
     super("bootGame");
   }
     preload(){
-
-    this.load.image("background", "assets/images/${imageKey}.jpg");
+    if(imageKey =='hot'){
+      this.load.image("background", "assets/images/hot.jpg");
+    }
+    else if (imageKey =='warm'){
+      this.load.image("background", "assets/images/warm.jpg");
+    }
+    else if (imageKey =='cold'){
+      this.load.image("background", "assets/images/cold.jpg");
+    }
+    else{
+      this.load.image("background", "assets/images/background1.jpg");
+    }
+    
     this.load.image("ship", "assets/images/coin2.png");
     this.load.image("ship2", "assets/images/coin2.png");
     this.load.image("ship3", "assets/images/coin2.png");
