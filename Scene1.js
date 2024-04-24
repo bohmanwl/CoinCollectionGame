@@ -58,3 +58,4 @@ class Scene1 extends Phaser.Scene {
     this.add.image(0, 0, imageKey).setOrigin(0); // Add the background image
   }
 }
+export default Scene1;
