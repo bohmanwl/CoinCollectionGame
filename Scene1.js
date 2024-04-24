@@ -4,34 +4,17 @@ class Scene1 extends Phaser.Scene {
     super("bootGame");
   }
     preload(){
+    //asset preload
+    this.load.image("background", "assets/images/background.png");
+    this.load.image("coin", "assets/images/coin.png");
+    this.load.image("monster", "assets/images/monster.png");
+    this.load.image("player", "assets/images/player.webp");
 
-      this.load.image("background", "assets/images/background1.png");
-   
-    
-    this.load.image("ship", "assets/images/coin2.png");
-    this.load.image("ship2", "assets/images/coin2.png");
-    this.load.image("ship3", "assets/images/coin2.png");
-    this.load.image("power-up", "assets/images/monster2.png");
-
-    this.load.spritesheet("explosion", "assets/spritesheets/explosion.png",{
-      frameWidth: 16,
-      frameHeight: 16
-    });
-    this.load.spritesheet("player", "assets/spritesheets/player.png",{
-      frameWidth: 16,
-      frameHeight: 24
-    });
-    this.load.spritesheet("beam", "assets/spritesheets/beam.png",{
-      frameWidth: 16,
-      frameHeight: 16
-    });
-
+    //Sound/bitmap preload
     this.load.bitmapFont("pixelFont", "assets/font/font.png", "assets/font/font.xml");
-
     this.load.audio("audio_damage", "assets/sounds/damage.mp3");
-    this.load.audio("audio_explosion", ["assets/sounds/explosion.ogg", "assets/sounds/explosion.mp3"]);
     this.load.audio("audio_pickup", ["assets/sounds/pickup.ogg", "assets/sounds/pickup.mp3"]);
-    this.load.audio("music", ["assets/sounds/sci-fi_platformer12.ogg", "assets/sounds/sci-fi_platformer12.mp3"]);
+    this.load.audio("music", "assets/sounds/oceanmusic.mp3");
   }
 
   create() {
