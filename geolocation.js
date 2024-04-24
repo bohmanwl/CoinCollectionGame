@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 imageKey = "cold";
             }
             mapLink.href = `https://www.openstreetmap.org/#map=18/${latitude}/${longitude}`;
-            mapLink.textContent = `Latitude: ${latitude} °, Longitude: ${longitude} ° , ${temperatureText}`;
+            mapLink.textContent = `Latitude: ${latitude} °, Longitude: ${longitude} ° , Whew, it's ${temperatureText} where you are!`;
         }
 
         function error() {
